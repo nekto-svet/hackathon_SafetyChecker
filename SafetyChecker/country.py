@@ -7,10 +7,10 @@ load_dotenv()
 class Country:
 
     def __init__(self, name):
-        self.name = name
-        self.threat = self.get_data(f"SELECT threat_lvl, threat_lvl FROM travel_warning WHERE country LIKE '%{name}%'")
-        self.details = self.get_data(f"SELECT details FROM travel_warning WHERE country LIKE '%{name}%'")
-        self.rec = self.get_data(f"SELECT recommendation FROM travel_warning WHERE country LIKE '%{name}%'")
+        self.name = self.get_data(f"SELECT country FROM travel_warning WHERE country = '{name}'")
+        self.threat = self.get_data(f"SELECT threat_lvl, threat_lvl FROM travel_warning WHERE country = '{name}'")
+        self.details = self.get_data(f"SELECT details FROM travel_warning WHERE country = '{name}'")
+        self.rec = self.get_data(f"SELECT recommendation FROM travel_warning WHERE country = '{name}'")
 
     def get_data(self, query): 
         conn = psycopg2.connect(
@@ -31,14 +31,28 @@ class Country:
         conn.close()
         return data
 
-    def __repr__(self):
-        return f'''
+    def __call__(self):
+        print(f'''
 Country: {self.name}
 Threat level: {self.threat}
 Details: {self.details}
 Recommendation: {self.rec}
-'''
+''')
+
+    def threat_lvl(self):
+        return max(map(int, self.threat.split('/')))
+
+    def compare_threat(self, other):
+        if self.threat_lvl() < other.threat_lvl():
+            return(f'{self.name} is less dangerous than {other.name}')
+        elif self.threat_lvl() > other.threat_lvl():
+            return(f'{self.name} is more dangerous than {other.name}')
+        else:
+            return(f'{self.name} and {other.name} are equally dangerous')
+
 
 france = Country('France')
 
-print(france)
+russia = Country('Russia')
+
+print(france.compare_threat(russia))
