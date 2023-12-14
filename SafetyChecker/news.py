@@ -1,37 +1,35 @@
 import requests
 import os, json
+from translate import Translator
+from country import Country
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-class NewsManager:
+class News:
 
     def __init__(self, country, eng=True):
-        self.country = country
+        self.country = Country(country)
+        self.eng = eng
         self.keywords = self.get_keywords()
+        self.url = ''
+        self.data = self.get_data(url)
 
     def get_keywords(self):
-        pass
+        keyword_list = ['antisemitism, antisemitic']
+        if self.country.language:
+            translator= Translator(to_lang=self.country.language)
+            keyword.list.append(translator.translate('antisemitism'), translator.translate('antisemitic'))
+        return keyword_list
 
-    def save_to_json(self):
-        pass
+    def get_data(self, url):
+        data = []
+        response = requests.get(url)
+        if response.status_code == 200:
+            data.append(response.json())
+
+    def save_data(self):
+        with open(dir_path + '/news.json', mode = 'w') as file:
+            json.dump(self.data, file)
 
     def count_articles(self):
-        pass
-
-url = ('https://newsapi.org/v2/top-headlines?country=fr&apiKey=e8965fac57ea48e4b4e04f9381f0aff2'
-       'q=Apple&'
-       'from=2023-12-14&'
-       'sortBy=popularity&'
-       'apiKey=e8965fac57ea48e4b4e04f9381f0aff2')
-
-response = requests.get(url)
-
-data = []
-
-for i in range(1):
-    response = requests.get(url)
-    if response.status_code == 200:
-        data.append(response.json())
-
-with open(dir_path + '/news.json', mode = 'w') as file:
-    json.dump(data, file)
+        return len(self.data)
