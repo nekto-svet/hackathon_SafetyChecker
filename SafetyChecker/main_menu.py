@@ -6,7 +6,7 @@ def first_menu():
         '''
             Hello, traveler!\n
             You can chek safety status of one contry (print '1')\n
-            Or you can look statuses of all countries (print '2')
+            Or you can compare countries by their safety(print '2')
         '''
     )
 
