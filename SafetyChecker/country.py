@@ -49,10 +49,3 @@ Recommendation: {self.rec}
             return(f'{self.name} is more dangerous than {other.name}')
         else:
             return(f'{self.name} and {other.name} are equally dangerous')
-
-
-france = Country('France')
-
-russia = Country('Russia')
-
-print(france.compare_threat(russia))
