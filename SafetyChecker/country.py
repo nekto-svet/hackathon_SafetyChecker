@@ -7,10 +7,10 @@ load_dotenv()
 class Country:
 
     def __init__(self, name):
-        self.name = self.get_data(f"SELECT name FROM travel_warning WHERE country = '{name}'")
+        self.name = self.get_data(f"SELECT country FROM travel_warning WHERE country = '{name}'")
         self.threat = self.get_data(f"SELECT threat_lvl, threat_lvl FROM travel_warning WHERE country = '{name}'")
         self.details = self.get_data(f"SELECT details FROM travel_warning WHERE country = '{name}'")
-        self.rec = self.get_data(f"SELECT recommendation FROM travel_warning WHERE country '{name}'")
+        self.rec = self.get_data(f"SELECT recommendation FROM travel_warning WHERE country = '{name}'")
 
     def get_data(self, query): 
         conn = psycopg2.connect(
@@ -49,3 +49,10 @@ Recommendation: {self.rec}
             return(f'{self.name} is more dangerous than {other.name}')
         else:
             return(f'{self.name} and {other.name} are equally dangerous')
+
+
+france = Country('France')
+
+russia = Country('Russia')
+
+print(france.compare_threat(russia))
