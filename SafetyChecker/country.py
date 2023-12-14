@@ -31,14 +31,21 @@ class Country:
         conn.close()
         return data
 
-    def __repr__(self):
-        return f'''
+    def __call__(self):
+        print(f'''
 Country: {self.name}
 Threat level: {self.threat}
 Details: {self.details}
 Recommendation: {self.rec}
-'''
+''')
 
-france = Country('France')
+    def threat_lvl(self):
+        return max(map(int, self.threat.split('/')))
 
-print(france)
+    def compare_threat(self, other):
+        if self.threat_lvl() < other.threat_lvl():
+            return(f'{self.name} is less dangerous than {other.name}')
+        elif self.threat_lvl() > other.threat_lvl():
+            return(f'{self.name} is more dangerous than {other.name}')
+        else:
+            return(f'{self.name} and {other.name} are equally dangerous')
