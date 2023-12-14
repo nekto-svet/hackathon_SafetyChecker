@@ -7,10 +7,10 @@ load_dotenv()
 class Country:
 
     def __init__(self, name):
-        self.name = name
-        self.threat = self.get_data(f"SELECT threat_lvl, threat_lvl FROM travel_warning WHERE country LIKE '%{name}%'")
-        self.details = self.get_data(f"SELECT details FROM travel_warning WHERE country LIKE '%{name}%'")
-        self.rec = self.get_data(f"SELECT recommendation FROM travel_warning WHERE country LIKE '%{name}%'")
+        self.name = self.get_data(f"SELECT name FROM travel_warning WHERE country = '{name}'")
+        self.threat = self.get_data(f"SELECT threat_lvl, threat_lvl FROM travel_warning WHERE country = '{name}'")
+        self.details = self.get_data(f"SELECT details FROM travel_warning WHERE country = '{name}'")
+        self.rec = self.get_data(f"SELECT recommendation FROM travel_warning WHERE country '{name}'")
 
     def get_data(self, query): 
         conn = psycopg2.connect(
