@@ -17,8 +17,6 @@ class News:
     def __init__(self, country, en=True):
         self.country = country
         self.en = en
-        self.data = self.get_data()
-        self.count = self.count_articles()
 
     def get_keywords(self):
         translator = Translator(to_lang=self.country.language)
@@ -28,22 +26,19 @@ class News:
             keyword_list.append(translator.translate('antisemitic'))
         return ' OR '.join(keyword_list)
 
-    def get_data(self):
-        return News.api.news_api(q=self.get_keywords(), country = self.country.code)
-
     def save_data(self):
+        data = News.api.news_api(q=self.get_keywords(), country = self.country.code)
         with open(dir_path + '/news.json', mode = 'w') as file:
-            json.dump(self.data, file)
-
-    def count_articles(self):
-        return self.data['totalResults']
+            json.dump(data, file)
 
     def __call__(self):
+        self.save_data()
         translator = Translator(from_lang=self.country.language, to_lang='en')
-        print(f'Relevant news: {self.count}')
-        for i, article in enumerate(self.data['results'], start=1):
-            if self.en:
-                print(f"#{i}: {translator.translate((article['title']))}")
-            else:
-                print(article['title'])
-            print(f"Link: {article['link']}\n")
+        with open(dir_path + '/news.json', mode = 'r') as file:
+            data = json.load(file)
+            print(f"Total results for 'antisemitism' in the news: {data['totalResults']}")
+            for i, article in enumerate(data['results'], start=1):
+                if self.en:
+                    print(f"#{i}: {translator.translate((article['title']))}\n{article['link']}\n{translator.translate((article['description'] if article['description'] else '-'))}\n")
+                else:
+                    print(f"#{i}: {article['title']}\n{article['link']}\n{article['description'] if article['description'] else '-'}\n")
