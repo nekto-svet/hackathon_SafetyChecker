@@ -26,52 +26,32 @@ def get_connect():
     return connection
     
 
-
-
-
+# for this function you need relevant browser driver on your computer
 def parser():
     driver = webdriver.Chrome()
-
-    url = "https://www.gov.il/en/departments/dynamiccollectors/travel-warnings-nsc?skip=0"
-    driver.get(url)
-
-    wait = WebDriverWait(driver, 10)
-    wait.until(EC.presence_of_element_located((By.XPATH, '//*[@ng-app]')))
-
     list_countries = []
-    for i in range (1,199):
+    
+    for p in range (0, 200, 10):
         try:
-            xpath = f'//*[@id="content"]/div[2]/div[2]/div[3]/ul/li[{i}]/div/div/div[1]/div[2]'
-            element = wait.until(EC.presence_of_element_located((By.XPATH, xpath)))
-            text_content = element.text
-            list_countries.append(text_content)
-            # print(text_content)
+            url = f"https://www.gov.il/en/departments/dynamiccollectors/travel-warnings-nsc?skip={p}"
+            driver.get(url)
+            wait = WebDriverWait(driver, 10)
+            wait.until(EC.presence_of_element_located((By.XPATH, '//*[@ng-app]')))
         except:
             pass
-   
+        for i in range (1,11):
+            try:
+                xpath = f'//*[@id="content"]/div[2]/div[2]/div[3]/ul/li[{i}]/div/div/div[1]/div[2]'
+                element = wait.until(EC.presence_of_element_located((By.XPATH, xpath)))
+                text_content = element.text
+                list_countries.append(text_content)
+                # print(text_content)
+            except:
+                pass
+    
     driver.quit()
 
     return list_countries
-
-
-
-# def make_table():
-#     connection = get_connect()
-#     cur = connection.cursor()
-
-#     cur.execute('''
-#     CREATE TABLE countries(
-# 	  id SERIAL PRIMARY KEY,
-#     name VARCHAR(100),
-# 	  threat_level VARCHAR(10),
-#     recomendations VARCHAR,
-#     area_under_threat VARCHAR,
-#     details TEXT
-#     )''')
-
-#     connection.commit()
-#     cur.close()
-#     connection.close()
 
 
 
@@ -99,20 +79,7 @@ def insert_data():
     cur.close()
     connection.close()
 
-
-# insert_data()
-connection = get_connect()   
-cur = connection.cursor()
-
-cur.execute ('SELECT * FROM travel_warning')
-rows = cur.fetchall()
-for row in rows:
-    print (row)
-
-
-connection.commit()
-
-cur.close()
-connection.close()
-
+if __name__ == "__main__":
+    insert_data()
+    
 
