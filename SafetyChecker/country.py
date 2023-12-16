@@ -1,16 +1,42 @@
 import psycopg2
 import os
 from dotenv import load_dotenv
+import pycountry
+from babel import Locale
 
 load_dotenv()
 
 class Country:
 
-    def __init__(self, name):
-        self.name = self.get_data(f"SELECT country FROM travel_warning WHERE country = '{name}'")
-        self.threat = self.get_data(f"SELECT threat_lvl, threat_lvl FROM travel_warning WHERE country = '{name}'")
-        self.details = self.get_data(f"SELECT details FROM travel_warning WHERE country = '{name}'")
-        self.rec = self.get_data(f"SELECT recommendation FROM travel_warning WHERE country = '{name}'")
+    def __init__(self, user_input):
+        self.user_input = user_input
+        self.code = self.get_code()
+        self.name = self.get_name()
+        self.language = self.get_language()
+        self.threat = self.get_data(f"SELECT threat_lvl, threat_lvl FROM travel_warning WHERE country = '{self.name}'")
+        self.details = self.get_data(f"SELECT details FROM travel_warning WHERE country = '{self.name}'")
+        self.rec = self.get_data(f"SELECT recomendations FROM travel_warning WHERE country = '{self.name}'")
+
+    def get_code(self):
+        try:
+            country = pycountry.countries.search_fuzzy(self.user_input)
+            return country[0].alpha_2
+        except LookupError:
+            return None
+
+    def get_name(self):
+        if self.code:
+            country = pycountry.countries.get(alpha_2 = self.code)
+            return country.name
+        else:
+            return None
+
+    def get_language(self):
+        try:
+            locale = Locale.parse(f'und_{self.code}')
+            return locale.language
+        except ValueError:
+            return None
 
     def get_data(self, query): 
         conn = psycopg2.connect(
@@ -49,10 +75,3 @@ Recommendation: {self.rec}
             return(f'{self.name} is more dangerous than {other.name}')
         else:
             return(f'{self.name} and {other.name} are equally dangerous')
-
-
-france = Country('France')
-
-russia = Country('Russia')
-
-print(france.compare_threat(russia))
