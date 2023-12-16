@@ -1,35 +1,39 @@
 import requests
-import os, json
-from translate import Translator
 from country import Country
+from newsdataapi import NewsDataApiClient
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
+api = NewsDataApiClient(apikey='pub_34760291d1d85adc505aaa47d2a3fdb8cb2d1')
 
-class News:
+response = api.news_api(q="antisemitism OR antisemitic", country = "us", max_result=5)
 
-    def __init__(self, country, eng=True):
-        self.country = Country(country)
-        self.eng = eng
-        self.keywords = self.get_keywords()
-        self.url = ''
-        self.data = self.get_data(url)
+print(response)
 
-    def get_keywords(self):
-        keyword_list = ['antisemitism, antisemitic']
-        if self.country.language:
-            translator= Translator(to_lang=self.country.language)
-            keyword.list.append(translator.translate('antisemitism'), translator.translate('antisemitic'))
-        return keyword_list
 
-    def get_data(self, url):
-        data = []
-        response = requests.get(url)
-        if response.status_code == 200:
-            data.append(response.json())
+# class News:
 
-    def save_data(self):
-        with open(dir_path + '/news.json', mode = 'w') as file:
-            json.dump(self.data, file)
+#     def __init__(self, country, eng=True):
+#         self.country = Country(country)
+#         self.eng = eng
+#         self.keywords = self.get_keywords()
+#         self.url = ''
+#         self.data = self.get_data(url)
 
-    def count_articles(self):
-        return len(self.data)
+#     def get_keywords(self):
+#         keyword_list = ['antisemitism, antisemitic']
+#         if self.country.language:
+#             translator= Translator(to_lang=self.country.language)
+#             keyword.list.append(translator.translate('antisemitism'), translator.translate('antisemitic'))
+#         return keyword_list
+
+#     def get_data(self, url):
+#         data = []
+#         response = requests.get(url)
+#         if response.status_code == 200:
+#             data.append(response.json())
+
+#     def save_data(self):
+#         with open(dir_path + '/news.json', mode = 'w') as file:
+#             json.dump(self.data, file)
+
+#     def count_articles(self):
+#         return len(self.data)
