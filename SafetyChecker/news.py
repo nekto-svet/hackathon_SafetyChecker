@@ -4,19 +4,14 @@ from newsdataapi import NewsDataApiClient
 
 api = NewsDataApiClient(apikey='pub_34760291d1d85adc505aaa47d2a3fdb8cb2d1')
 
-response = api.news_api(q="antisemitism OR antisemitic", country = "us", max_result=5)
+response = api.news_api(q="antisemitism OR antisemitic", country = "fr")
 
 print(response)
 
-
 # class News:
 
-#     def __init__(self, country, eng=True):
-#         self.country = Country(country)
-#         self.eng = eng
-#         self.keywords = self.get_keywords()
-#         self.url = ''
-#         self.data = self.get_data(url)
+#     def __init__(self, country):
+#         self.country = country
 
 #     def get_keywords(self):
 #         keyword_list = ['antisemitism, antisemitic']
