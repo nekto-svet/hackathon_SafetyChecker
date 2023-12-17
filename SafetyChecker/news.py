@@ -30,14 +30,18 @@ class News:
             json.dump(data, file)
 
     def __call__(self):
-        self.save_data()
-        if self.country.language != 'en':
-            translator = Translator(from_lang=self.country.language, to_lang='en')
-        with open(dir_path + '/news.json', mode = 'r') as file:
-            data = json.load(file)
-            print(f"Total results for 'antisemitism' in the news: {data['totalResults']}")
-            for i, article in enumerate(data['results'], start=1):
-                if self.country.language != 'en':
-                    print(f"#{i}: {translator.translate((article['title']))}\n{article['link']}\n{translator.translate((article['description'] if article['description'] else '-'))}\n")
-                else:
-                    print(f"#{i}: {(article['title'])}\n{article['link']}\n{(article['description'] if article['description'] else '-')}\n")
+        try:
+            self.save_data()
+        except:
+            print('News unavailable')
+        else:
+            if self.country.language != 'en':
+                translator = Translator(from_lang=self.country.language, to_lang='en')
+            with open(dir_path + '/news.json', mode = 'r') as file:
+                data = json.load(file)
+                print(f"Total results for 'antisemitism' in the news: {data['totalResults']}")
+                for i, article in enumerate(data['results'], start=1):
+                    if self.country.language != 'en':
+                        print(f"#{i}: {translator.translate((article['title']))}\n{article['link']}\n{translator.translate((article['description'] if article['description'] else '-'))}\n")
+                    else:
+                        print(f"#{i}: {(article['title'])}\n{article['link']}\n{(article['description'] if article['description'] else '-')}\n")
