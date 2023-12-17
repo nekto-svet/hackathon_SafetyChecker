@@ -11,11 +11,11 @@ class Country:
     def __init__(self, user_input):
         self.user_input = user_input
         self.code = self.get_code()
-        self.name = self.get_name()
-        self.language = self.get_language()
-        self.threat = self.get_data(f"SELECT threat_lvl, threat_lvl FROM travel_warning WHERE country = '{self.name}'")
-        self.details = self.get_data(f"SELECT details FROM travel_warning WHERE country = '{self.name}'")
-        self.rec = self.get_data(f"SELECT recomendations FROM travel_warning WHERE country = '{self.name}'")
+        self.name = self.get_data(f"SELECT country FROM travel_warning WHERE country_code = '{self.code}'")
+        self.language = self.get_data(f"SELECT language_code FROM travel_warning WHERE country_code = '{self.code}'")
+        self.threat = self.get_data(f"SELECT threat_lvl FROM travel_warning WHERE country_code = '{self.code}'")
+        self.details = self.get_data(f"SELECT details FROM travel_warning WHERE country_code = '{self.code}'")
+        self.rec = self.get_data(f"SELECT recomendations FROM travel_warning WHERE country_code = '{self.code}'")
 
     def get_code(self):
         try:
@@ -29,13 +29,6 @@ class Country:
             country = pycountry.countries.get(alpha_2 = self.code)
             return country.name
         else:
-            return None
-
-    def get_language(self):
-        try:
-            locale = Locale.parse(f'und_{self.code}')
-            return locale.language
-        except ValueError:
             return None
 
     def get_data(self, query): 
