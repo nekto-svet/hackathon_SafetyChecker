@@ -11,7 +11,7 @@ class Country:
         self.user_input = user_input
         self.code = self.get_code()
         self.name = self.get_data(f"SELECT country FROM travel_warning WHERE country_code = '{self.code}'")
-        self.language = self.get_data(f"SELECT language_code FROM travel_warning WHERE country_code = '{self.code}'")
+        self.language = self.get_data(f"SELECT language_code FROM travel_warning WHERE country_code = '{self.code}'") or 'en'
         self.threat = self.get_data(f"SELECT threat_lvl FROM travel_warning WHERE country_code = '{self.code}'")
         self.details = self.get_data(f"SELECT details FROM travel_warning WHERE country_code = '{self.code}'")
         self.rec = self.get_data(f"SELECT recomendations FROM travel_warning WHERE country_code = '{self.code}'")
@@ -21,13 +21,6 @@ class Country:
             country = pycountry.countries.search_fuzzy(self.user_input)
             return country[0].alpha_2
         except LookupError:
-            return None
-
-    def get_name(self):
-        if self.code:
-            country = pycountry.countries.get(alpha_2 = self.code)
-            return country.name
-        else:
             return None
 
     def get_data(self, query): 

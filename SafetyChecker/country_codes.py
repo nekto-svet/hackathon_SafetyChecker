@@ -15,7 +15,7 @@ conn = psycopg2.connect(
 
 cur = conn.cursor()
 
-cur.execute('ALTER TABLE travel_warning ADD contry_code VARCHAR(2)')
+cur.execute('ALTER TABLE travel_warning ADD country_code VARCHAR(2)')
 cur.execute('ALTER TABLE travel_warning ADD language_code VARCHAR(2)')
 
 cur.execute('SELECT country FROM travel_warning')
