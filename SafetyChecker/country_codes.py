@@ -2,6 +2,7 @@ import psycopg2
 import os
 from dotenv import load_dotenv
 import pycountry
+from babel import Locale
 
 load_dotenv()
 
@@ -28,8 +29,8 @@ for row in rows:
     except:
         country_code = None
     try:
-        language = pycountry.languages.get(alpha_2=contry_code)
-        language_code = language.alpha_2
+        locale = Locale.parse(f'und_{country_code}')
+        language_code =  locale.language
     except:
         language_code = None
     cur.execute('UPDATE travel_warning SET contry_code=%s, language_code=%s WHERE country=%s', (contry_code, language_code, row[0]))
