@@ -10,10 +10,21 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 load_dotenv()
 
 class News:
+    '''News about antisemitism from a specified country
+    Needs newsAPI key from .env
+
+    Parameters
+    country (object): instance of the Country class
+
+    Methods
+    get_keywords: returns a list of keywords for the api search, adding translations to the language of the country
+    save_data: saves api data to json
+    __call__: prints formatted data from json, translation to English if necessary 
+    ''' 
 
     api = NewsDataApiClient(apikey=os.getenv('newsAPI'))
 
-    def __init__(self, country):
+    def __init__(self, country:object):
         self.country = country
 
     def get_keywords(self):

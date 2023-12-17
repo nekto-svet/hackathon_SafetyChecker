@@ -6,6 +6,8 @@ from babel import Locale
 
 load_dotenv()
 
+## Writing additional data for the country and language codes into the database
+
 conn = psycopg2.connect(
     dbname=os.getenv('db_name'),
     user=os.getenv('db_user'),
