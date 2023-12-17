@@ -20,7 +20,7 @@ class News:
     def get_keywords(self):
         translator = Translator(to_lang=self.country.language)
         keyword_list = ['antisemitism', 'antisemitic']
-        if self.country.language != 'en':
+        if self.country.language != 'en' and self.country.language != None:
             keyword_list.append(translator.translate('antisemitism'))
             keyword_list.append(translator.translate('antisemitic'))
         return ' OR '.join(keyword_list)
