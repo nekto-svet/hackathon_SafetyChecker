@@ -19,7 +19,7 @@ class News:
     Methods
     get_keywords: returns a list of keywords for the api search, adding translations to the language of the country
     save_data: saves api data to json
-    __call__: prints formatted data from json, translation to English if necessary 
+    __repr__: returns formatted string from json, translation to English if necessary 
     ''' 
 
     api = NewsDataApiClient(apikey=os.getenv('newsAPI'))
@@ -40,19 +40,21 @@ class News:
         with open(dir_path + '/news.json', mode = 'w') as file:
             json.dump(data, file)
 
-    def __call__(self):
+    def __repr__(self):
         try:
             self.save_data()
         except:
-            print('News unavailable')
+           return 'News unavailable'
         else:
+            text = ''
             if self.country.language != 'en':
                 translator = Translator(from_lang=self.country.language, to_lang='en')
             with open(dir_path + '/news.json', mode = 'r') as file:
                 data = json.load(file)
-                print(f"Total results for 'antisemitism' in the news: {data['totalResults']}")
+                text += f"Total results for 'antisemitism' in the news: {data['totalResults']}\n"
                 for i, article in enumerate(data['results'], start=1):
                     if self.country.language != 'en':
-                        print(f"#{i}: {translator.translate((article['title']))}\n{article['link']}\n{translator.translate((article['description'] if article['description'] else '-'))}\n")
+                        text += f"#{i}: {translator.translate((article['title']))}\n{article['link']}\n{translator.translate((article['description'] if article['description'] else '-'))}\n\n"
                     else:
-                        print(f"#{i}: {(article['title'])}\n{article['link']}\n{(article['description'] if article['description'] else '-')}\n")
+                        text += f"#{i}: {(article['title'])}\n{article['link']}\n{(article['description'] if article['description'] else '-')}\n\n"
+            return text

@@ -14,7 +14,7 @@ class Country:
     Methods
     get_code: returns the ISO 3166-1 alpha-2 country code from user_input
     get_data: connects to the database to retrieve data
-    __call__: prints formatted info about the country
+    __repr__: returns formatted info about the country
     threat_lvl: returns an int value of the threat level
     compare_threat: compares the threat levels between two Country instances
     ''' 
@@ -55,8 +55,8 @@ class Country:
         conn.close()
         return data
 
-    def __call__(self):
-        print(f'''
+    def __repr__(self):
+        return(f'''
 Country: {self.name}
 Threat level: {self.threat}
 Details: {self.details}
