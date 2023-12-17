@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result2</title>
+</head>
+<body>
+    <style>
+        *{font-family: sans-serif;}
+        h2{margin-top: 25px; font-size:  40px; text-align: center;}
+        p{margin-top: 50px; text-align: center; font-size:  25px;}
+        .buttons {display: flex; justify-content: center; margin-top: 50px;}
+        button {margin: 10px}
+        a {font-size:  25px; text-decoration: none;}
+    </style>
+    <h2>Comparison result</h2>
+    <p>{{ result}}</p>
+
+    <div class="buttons">
+        <button><a href="{{ url_for('index') }}">To the Main Menu</button></a>
+    </div>
+</body>
+</html>

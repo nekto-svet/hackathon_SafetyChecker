@@ -55,7 +55,7 @@ class Country:
         conn.close()
         return data
 
-    def __repr__(self):
+    def info(self):
         return(f'''
 Country: {self.name}
 Threat level: {self.threat}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+</head>
+<body>
+    <style>
+        *{font-family: sans-serif;}
+        h2{margin-top: 50px; font-size:  40px; text-align: center;}
+        p{margin-top: 50px; text-align: left; font-size:  30px;}
+        p:nth-child(2){text-align: center}
+        .buttons {display: flex; justify-content: center; margin-top: 50px;}
+        button {margin: 10px}
+        a {font-size:  25px; text-decoration: none;}
+    </style>
+    <h2>Result</h2>
+    <p>{{ result1 }}</p>
+    <p>{{ result2 }}</p>
+    <p>{{ result3 }}</p>
+    <p>{{ result4 }}</p>
+    <p>{{ result5 }}</p>
+
+    <div class="buttons">
+        <button><a href="{{ url_for('index') }}">To the Main Menu</button></a>
+    </div>
+</body>
+</html>

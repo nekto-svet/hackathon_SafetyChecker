@@ -40,7 +40,7 @@ class News:
         with open(dir_path + '/news.json', mode = 'w') as file:
             json.dump(data, file)
 
-    def __repr__(self):
+    def get_text(self):
         try:
             self.save_data()
         except:

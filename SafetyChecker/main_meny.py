@@ -12,7 +12,7 @@ def first_menu():
     )
 
 def user_first_imput():
-    user_first_answer = input(' ').strip()
+    user_first_answer = input(' ').capitalize().strip()
     return user_first_answer
 
 
@@ -48,7 +48,7 @@ def second_menu():
 
 
 def user_fifth_input():
-    user_fifth_answer = input ('/n            With what contry do you want to compare?\n')
+    user_fifth_answer = input ('            With what contry do you want to compare?\n')
     return user_fifth_answer.capitalize().strip()    
     
 
@@ -61,8 +61,8 @@ def main():
             curr_country = Country(user_second_answer)
             news = News(curr_country)
             print('\n')
-            curr_country()
-            news()
+            print(curr_country.info())
+            print(news.get_text())
             user_fourth_answer = second_menu()
             if user_fourth_answer == 'E':
                 print('\n            You are in the Main Menu.\n')

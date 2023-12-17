@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Safety</title>
+</head>
+<body>
+    <style>
+        *{font-family: sans-serif;}
+        h2{margin-top: 50px; font-size:  40px; text-align: center;}
+        form {display: flex; justify-content: center; align-content: center;}
+        .subtitle { text-align: center; font-size:  30px;}
+        .input {height: 40px; width: 120px; margin: 0 10px 0 10px; font-size:  25px;}
+        .buttons {display: flex; justify-content: center;  margin-top: 50px;}
+        .butt {margin: 10px}
+        a {font-size:  25px; text-decoration: none;}
+        .submit {font-size:  30px;}
+    </style>
+
+    <h2>What country do you want to check?</h2>
+    <form action="/result" method="post">
+        <label class='subtitle' for="country_name">Print name of country:</label>
+        <input class='input' type="text" id="country_name" name="country_name" required>
+        <button class ='submit' type="submit">Submit</button>
+    </form>
+    <div class="buttons">
+        <button class="butt"><a href="{{ url_for('index') }}">To the Main Menu</button></a>
+    </div>
+</body>
+</html>
