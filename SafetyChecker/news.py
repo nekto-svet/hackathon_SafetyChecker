@@ -14,9 +14,8 @@ class News:
 
     api = NewsDataApiClient(apikey=os.getenv('newsAPI'))
 
-    def __init__(self, country, en=True):
+    def __init__(self, country):
         self.country = country
-        self.en = en
 
     def get_keywords(self):
         translator = Translator(to_lang=self.country.language)
@@ -38,7 +37,4 @@ class News:
             data = json.load(file)
             print(f"Total results for 'antisemitism' in the news: {data['totalResults']}")
             for i, article in enumerate(data['results'], start=1):
-                if self.en:
-                    print(f"#{i}: {translator.translate((article['title']))}\n{article['link']}\n{translator.translate((article['description'] if article['description'] else '-'))}\n")
-                else:
-                    print(f"#{i}: {article['title']}\n{article['link']}\n{article['description'] if article['description'] else '-'}\n")
+                print(f"#{i}: {translator.translate((article['title']))}\n{article['link']}\n{translator.translate((article['description'] if article['description'] else '-'))}\n")
