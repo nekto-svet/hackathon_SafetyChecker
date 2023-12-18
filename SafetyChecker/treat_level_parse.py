@@ -6,6 +6,11 @@ import psycopg2
 import os
 from dotenv import load_dotenv
 
+
+# This is the functions that allow to take information from the certain page of gov.il and to write in to a Data Base
+
+
+# Connection
 def get_connect():
     load_dotenv()
 
@@ -26,6 +31,7 @@ def get_connect():
     return connection
     
 
+# Parce the site via Selenium, because the site was wrote with Angular
 # for this function you need relevant browser driver on your computer
 def parser():
     driver = webdriver.Chrome()
@@ -55,7 +61,7 @@ def parser():
 
 
 
-
+#  This function takes results of the first two functions and writes it to DB
 def insert_data():
     connection = get_connect()
     cur = connection.cursor()

@@ -8,3 +8,5 @@ pycountry==23.12.11
 python-dotenv==1.0.0
 requests==2.31.0
 urllib3==2.1.0
+selenium== 4.16.0
+flask===3.0.0

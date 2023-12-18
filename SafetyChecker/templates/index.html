@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Safety checker</title>
 </head>
+<!-- This is the main HTML page of the interface of the programm -->
 <body>
     <style>
         *{font-family: sans-serif;}
@@ -16,6 +17,7 @@
     </style>
     <h1>Hello, traveller!</h1>
     <div class=subtitle>You can chek safety status of one contry or compare two countries by their safety</div>
+    <!-- Here are two buttons, that offer to choose two options of action and redirect to another pages -->
     <div class=buttons>
         <button><a href="{{ url_for('one_country') }}" >Check One Country</button></a>
         <button><a href="{{ url_for('compare_countries') }}" >Compare Two Countries</button></a>

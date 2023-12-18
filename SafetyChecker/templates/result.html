@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result</title>
 </head>
+<!-- This is a page with results of checking one country. The link fron the page 'one_country' leads here -->
 <body>
     <style>
         *{font-family: sans-serif;}
         h2{margin-top: 50px; font-size:  40px; text-align: center;}
-        p{margin-top: 50px; text-align: left; font-size:  30px;}
-        p:nth-child(2){text-align: center}
+        p{margin: 50px 30px 0 30px; text-align: left; font-size:  20px;}
         .buttons {display: flex; justify-content: center; margin-top: 50px;}
         button {margin: 10px}
         a {font-size:  25px; text-decoration: none;}
@@ -22,6 +22,9 @@
     <p>{{ result4 }}</p>
     <p>{{ result5 }}</p>
 
+    <div class="buttons">
+        <button><a href="{{ url_for('one_country') }}">Try again</button></a>
+    </div>
     <div class="buttons">
         <button><a href="{{ url_for('index') }}">To the Main Menu</button></a>
     </div>

@@ -1,6 +1,8 @@
 from country import Country
 from news import News
 
+# This is a version of meny for console using
+
 
 def first_menu():
     print (
@@ -10,7 +12,6 @@ def first_menu():
             For Exit (print 'E')
         '''
     )
-
 def user_first_imput():
     user_first_answer = input(' ').capitalize().strip()
     return user_first_answer
@@ -54,30 +55,39 @@ def user_fifth_input():
 
 def main():
     while True:
+        # shows the first menu
         first_menu()
+        # takes the first users input
         user_first_answer = user_first_imput()
         if user_first_answer == '1':
+            # takes the second user input with one country
             user_second_answer = user_second_input()
+            # takes information from Objects
             curr_country = Country(user_second_answer)
             news = News(curr_country)
             print('\n')
             print(curr_country.info())
             print(news.get_text())
+            # askes if user whants to compare or return
             user_fourth_answer = second_menu()
             if user_fourth_answer == 'E':
                 print('\n            You are in the Main Menu.\n')
                 main()
-            elif user_fourth_answer == 'C':                    user_fifth_answer = user_fifth_input()
-            second_country = Country(user_fifth_answer)
-            print('\n')
-            print(curr_country.compare_threat(second_country))
-            main()
+            elif user_fourth_answer == 'C':       
+                # askes with what user wants to compare
+                user_fifth_answer = user_fifth_input()
+                second_country = Country(user_fifth_answer)
+                print('\n')
+                print(curr_country.compare_threat(second_country))
+                main()
             
-
+        
         elif user_first_answer == '2':
+            # takes a users input with two countries
             countries = user_third_input()
             country_one = countries[0].strip().lower().capitalize()
             country_two = countries[1].strip().lower().capitalize()
+            # takes an information from the object Country
             country_obj1 = Country(country_one)
             country_obj2 = Country(country_two)
             print('\n')
@@ -89,6 +99,7 @@ def main():
         else:
             print('Not clear request, try again')
 
+# Tis funktion works just one time to say hello
 def action():
     print ('\n            Hello, traveler!')
     main()

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result2</title>
 </head>
+<!-- This is a page with results of comparing countries. The link from the page 'compare_countries' leads here -->
 <body>
     <style>
         *{font-family: sans-serif;}
@@ -18,6 +19,9 @@
     <h2>Comparison result</h2>
     <p>{{ result}}</p>
 
+    <div class="buttons">
+        <button><a href="{{ url_for('compare_countries') }}">Try again</button></a>
+    </div>
     <div class="buttons">
         <button><a href="{{ url_for('index') }}">To the Main Menu</button></a>
     </div>
