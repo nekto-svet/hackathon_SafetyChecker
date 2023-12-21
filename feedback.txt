@@ -1,0 +1,16 @@
+Nadia and Sveta: Safety checker for contries, with parser and translations
+The program checkes real information and news related to antisemitism in any country.
+It can check one country or compare two contries.
+The news for each country are searched in the countries's language using module Translate and an API
+and the general safety information is checked using Selenium (parser)
+
+The structure is clear and organized, the code is easy to follow and functional.
+OOP was beautifuly implemented, files are connected, the usage of the modules such as pycountry, Flask, Selenium and Translate is accurate and gives a lot of value to the project functionality.
+The doc strings in the classes brings even more professionalism and shows that the project was made in pair :) 
+Although the GUI using flask is simple, the logic and functionality bhrigths in this project.
+
+Python OOP:10/10
+Modules: 10/10
+Database:10/10
+JSON/API:10/10
+Overall: 10
